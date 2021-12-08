@@ -1,0 +1,46 @@
+<div class="mt-5 px-5">
+    <div class="d-flex mb-3">
+        <h5> Institutions </h5>
+        <button class="btn btn-primary" style="margin-left: 1rem" data-bs-toggle="modal"
+            *ngIf="currentUser?.role === 'admin'" data-bs-target="#createAndEditModalRef"
+            (click)="selectedInstitution = undefined">
+            <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+    </div>
+    <app-institution-form [selectedInstitution]="selectedInstitution" (reloadParent)="reloadInstitutions()">
+    </app-institution-form>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Description</th>
+                    <th>Country</th>
+                    <th>State</th>
+                    <th>City</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let institution of institutions">
+                    <td>{{institution.description}}</td>
+                    <td>{{institution.country}}</td>
+                    <td>{{institution.state}}</td>
+                    <td>{{institution.city}}</td>
+                    <td class="text-center  d-flex">
+                        <button class="btn btn-primary" (click)="setSelectedInstitution(institution)"
+                            data-bs-toggle="modal" data-bs-target="#createAndEditModalRef">
+                            <fa-icon [icon]="faPencilAlt"></fa-icon>
+                        </button>
+                        <button class="btn btn-danger" (click)="setSelectedInstitution(institution)"
+                            style="margin-left: 3px;" data-bs-toggle="modal" data-bs-target="#confirmDeletionModalRef"
+                            *ngIf="currentUser?.role === 'admin'">
+                            <fa-icon [icon]="faTrashAlt"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<app-delete-popup [selectedInstitution]="selectedInstitution" (reloadParent)="reloadInstitutions()">
+</app-delete-popup>

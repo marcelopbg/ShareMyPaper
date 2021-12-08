@@ -1,0 +1,4 @@
+dotnet ef migrations add KnowledgeAreas -s .\ShareMyPaper.Web\ -p .\ShareMyPaper.Infraestructure\
+
+
+dotnet ef database update -p .\ShareMyPaper.Infraestructure\ -s .\ShareMyPaper.Web\

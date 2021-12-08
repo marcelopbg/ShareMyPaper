@@ -1,0 +1,8 @@
+@media screen and (min-width: 600px) {
+    #login-card {
+        width: 70% !important;
+    }
+}
+#login-card {
+    width: 90%;
+}

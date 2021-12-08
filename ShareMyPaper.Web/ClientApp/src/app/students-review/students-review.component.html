@@ -1,0 +1,31 @@
+<div class="mt-5 px-5">
+    <div class="d-flex mb-3">
+        <h5> Students Review </h5>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Student</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let student of students">
+                    <td>{{student.email}}</td>
+                    <td style="width: 180px;">
+                        <button class="btn btn-primary"(click)="viewStudentDocument(student)">
+                            <fa-icon [icon]="faFilePdf"></fa-icon> View Document
+                        </button>
+                    </td>
+                    <td style="width: 190px;">
+                        <button class="btn btn-success" (click)="approveStudent(student)">
+                            <fa-icon [icon]="faCheck"></fa-icon> Approve Student
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

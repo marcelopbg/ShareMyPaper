@@ -1,0 +1,44 @@
+<div class="modal fade" #createAndEditModalRef id="createAndEditModalRef" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="createAndEditModalRefLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createAndEditModalRefLabel"  [innerText]="((selectedInstitution) ? 'Edit' : 'Create') + ' Institution'"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="institutionForm" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+
+                    <div>
+                        <label for="exampleInputEmail1" class="form-label">Description <span
+                                class="text-danger">*</span></label>
+                        <input type="description" class="form-control" id="description" aria-describedby="description"
+                            formControlName="description">
+                    </div>
+                    <div class="mt-3">
+                        <label for="exampleInputEmail1" class="form-label">Country <span
+                                class="text-danger">*</span></label>
+                        <input type="country" class="form-control" id="country" aria-describedby="country"
+                            formControlName="country">
+                    </div>
+                    <div class="mt-3">
+                        <label for="exampleInputEmail1" class="form-label">State <span
+                                class="text-danger">*</span></label>
+                        <input type="state" class="form-control" id="state" aria-describedby="state"
+                            formControlName="state">
+                    </div>
+                    <div class="mt-3">
+                        <label for="exampleInputEmail1" class="form-label">City <span
+                                class="text-danger">*</span></label>
+                        <input type="city" class="form-control" id="city" aria-describedby="city"
+                            formControlName="city">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeAndRefresh()" #dismiss>Close</button>
+                    <button type="submit" class="btn btn-primary"[disabled]="institutionForm.invalid"><span [innerText]="(selectedInstitution) ? 'Save' : 'Add'"></span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

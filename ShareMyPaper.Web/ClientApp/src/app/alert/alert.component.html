@@ -1,0 +1,8 @@
+<div *ngIf="alert" role="alert"
+    [class]="'align-items-center border-0 text-white toast show bg-'+alert.severity">
+    <div class="d-flex">
+        <div class="toast-body" style="white-space:pre-wrap;"> {{ alert.message }}
+        </div>
+        <button type="button" aria-label="Close" class="btn-close btn-close-white me-2 m-auto" (click)="dismiss()"></button>
+    </div>
+</div>

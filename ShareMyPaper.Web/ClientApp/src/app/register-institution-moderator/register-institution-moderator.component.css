@@ -1,0 +1,8 @@
+@media screen and (min-width: 600px) {
+    #signup-div {
+        width: 70% !important;
+    }
+}
+#signup-div {
+    width: 90%;
+}

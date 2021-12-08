@@ -1,0 +1,9 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+/* You can add global styles to this file, and also import other style files */
+input.ng-invalid.ng-touched{ 
+    border-color: rgba(255,10,29,1) !important; box-shadow: none !important; 
+} 
+input.ng-invalid.ng-touched:focus{ 
+    box-shadow: 0 0 0 0.2rem rgba(255,10,29,0.25) !important; 
+}
