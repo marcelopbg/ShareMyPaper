@@ -39,7 +39,7 @@ public class AuthController : ControllerBase
         var identityResult = await _authService.RegisterStudent(dto);
         if (identityResult.Succeeded)
         {
-            _= Task.Run(async () => await _notificationService.NotifyModsAboutStudentSignup(dto.InstitutionId));
+            _ = _notificationService.NotifyModsAboutStudentSignup(dto.InstitutionId);
             return Ok(identityResult);
         }
         else
