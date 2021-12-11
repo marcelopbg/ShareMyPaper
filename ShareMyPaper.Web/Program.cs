@@ -115,7 +115,7 @@ var db = app.Services.CreateScope()
 
 if (!app.Environment.IsEnvironment("Testing"))
 {
-    db.MigrateAsync();
+    db.Migrate();
 }
 
 app.UseHttpsRedirection();
