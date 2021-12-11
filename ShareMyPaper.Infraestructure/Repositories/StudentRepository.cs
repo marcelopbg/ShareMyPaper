@@ -14,10 +14,12 @@ public class StudentRepository : GenericRepository<ApplicationUser>, IStudentRep
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
-    public StudentRepository(AppDbContext dbContext,IUnitOfWork unitOfWork,IMapper mapper) : base(dbContext)
+    private readonly INotificationService _notificationService;
+    public StudentRepository(AppDbContext dbContext,IUnitOfWork unitOfWork,IMapper mapper, INotificationService notificationService) : base(dbContext)
     {
         _mapper = mapper;
         _unitOfWork = unitOfWork;
+        _notificationService = notificationService;
     }
 
     public async Task<bool> ApproveStudentRegistration(string userId)
@@ -31,6 +33,7 @@ public class StudentRepository : GenericRepository<ApplicationUser>, IStudentRep
             user.IsActive = true;
             Update(user);
             await _unitOfWork.Commit();
+            _ = _notificationService.SendStudentReviewNotification(user.Email);
             return true;
         }
         return false;
