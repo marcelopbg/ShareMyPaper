@@ -12,10 +12,19 @@ public class StudentsController : Controller
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IFileStorageService _fileStorageService;
-    public StudentsController(IStudentRepository studentRepository, IFileStorageService fileStorageService)
+    private readonly INotificationService _notificationService;
+    private readonly IUnitOfWork _unitOfWork;
+    public StudentsController(
+        IStudentRepository studentRepository,
+        IFileStorageService fileStorageService,
+        INotificationService notificationService,
+        IUnitOfWork unitOfWork
+        )
     {
         _studentRepository = studentRepository;
         _fileStorageService = fileStorageService;
+        _notificationService = notificationService;
+        _unitOfWork = unitOfWork;
     }
     [HttpGet]
     [Route("review")]
@@ -30,8 +39,15 @@ public class StudentsController : Controller
     [Authorize(Roles = "institution moderator")]
     public async Task<IActionResult> ReviewStudentRegistration([FromRoute]string studentId)
     {
-        var result = await _studentRepository.ApproveStudentRegistration(studentId);
-        return Ok(result);
+        var student = await _studentRepository.FirstAsync(
+            filter: user => user.Id == studentId
+            && user.IsActive == false
+            );
+        student.IsActive = true;
+        _studentRepository.Update(student);
+        await _unitOfWork.Commit();
+        _ = _notificationService.SendStudentReviewNotification(student.Email);
+        return Ok();
     }
     [HttpGet]
     [Route("document/{documentId}")]
