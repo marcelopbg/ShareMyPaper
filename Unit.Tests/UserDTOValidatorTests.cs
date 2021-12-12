@@ -29,7 +29,7 @@ public class UserDTOValidatorTests
         fileMock.Setup(_ => _.FileName).Returns(fileName);
         fileMock.Setup(_ => _.Length).Returns(5000001);
         fileMock.Setup(_ => _.ContentType).Returns("application/pdf");
-        // Act
+
         var userDTO = new StudentInputDTO()
         {
             UploadedFile = null,
