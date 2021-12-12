@@ -53,7 +53,7 @@ public class AuthController : ControllerBase
     [Route("institution-moderator/register")]
     public async Task<IActionResult> RegisterInstitutionModerator(InstitutionModeratorInputDTO dto)
     {
-        if(HttpContext.User.IsInRole("institution moderator")) 
+        if (HttpContext.User.IsInRole("institution moderator"))
         {
             dto.InstitutionId = new CurrentUser(HttpContext).InstitutionId;
         }

@@ -14,6 +14,7 @@ namespace ShareMyPaper.Infraestructure.Persistence
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Institution> Institution { get; set; }
         public DbSet<KnowledgeArea> KnowledgeArea { get; set; }
+        public DbSet<Post> Post { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

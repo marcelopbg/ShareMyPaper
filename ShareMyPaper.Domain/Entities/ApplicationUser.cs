@@ -9,5 +9,6 @@ public class ApplicationUser : IdentityUser
     public int? InstitutionId { get; set; }
     public Institution Institution { get; set; }
     public ICollection<KnowledgeArea> KnowledgeAreas { get; set; }
+    public ICollection<Post> Posts { get; set; }
     public bool IsActive { get; set; }
 }

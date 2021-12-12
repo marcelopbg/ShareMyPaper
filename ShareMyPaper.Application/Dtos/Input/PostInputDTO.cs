@@ -6,5 +6,6 @@ public class PostInputDTO
     public string Title { get; set; }
     public string Text { get; set; }
     public bool IsPublic { get; set; }
+    public int KnowledgeAreaId { get; set; }
     public IFormFile UploadedFile { get; set; }
 }

@@ -33,6 +33,7 @@ builder.Services.AddScoped<IInstitutionRepository, InstitutionRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IKnowledgeAreaRepository, KnowledgeAreaRepository>();
 builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IInstitutionModeratorRepository, InstitutionModeratorRepository>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

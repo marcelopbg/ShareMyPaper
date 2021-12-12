@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc;
 using ShareMyPaper.Application.Interfaces.Repositories;
 using ShareMyPaper.Application.Interfaces.Services;
 
