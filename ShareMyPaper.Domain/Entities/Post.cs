@@ -5,6 +5,8 @@ public class Post : BaseEntity
     public string Text { get; set; }
     public string DocumentId { get; set; }
     public int KnowledgeAreaId { get; set; }
+    public bool IsPublic { get; set; }
+    public bool IsActive { get; set; }
     public KnowledgeArea KnowledgeArea { get; set; }
 
 }

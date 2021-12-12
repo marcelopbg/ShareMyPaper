@@ -56,6 +56,6 @@ public class PostDtoValidatorTests
         };
         var result = await validator.TestValidateAsync(posDTO);
 
-        result.ShouldHaveValidationErrorFor(user => user.Title);
+        result.ShouldHaveValidationErrorFor(user => user.Title).WithErrorMessage("'Title' must not be empty.");
     }
 }
