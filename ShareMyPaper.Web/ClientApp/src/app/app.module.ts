@@ -17,6 +17,7 @@ import { RegisterInstitutionModeratorComponent } from './register-institution-mo
 import { InstitutionComponent } from './institution/institution.component';
 import { InstitutionFormComponent } from './institution/institution-form/institution-form.component';
 import { DeletePopupComponent } from './institution/delete-popup/delete-popup.component';
+import { CreatePostComponent } from './post/create-post/create-post.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { DeletePopupComponent } from './institution/delete-popup/delete-popup.co
     InstitutionComponent,
     InstitutionFormComponent,
     DeletePopupComponent,
+    CreatePostComponent,
   ],
   imports: [
     BrowserModule,

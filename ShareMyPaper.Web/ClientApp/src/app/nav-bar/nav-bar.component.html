@@ -16,6 +16,9 @@
                 <div class="nav-item" *ngIf="user?.role === 'admin' || user?.role === 'institution moderator'">
                     <a [class]="{'nav-link': true, active: bindActive('/register-institution-moderator')}" routerLink="register-institution-moderator">Register Institution Mod</a>
                 </div>
+                <div class="nav-item" *ngIf="user?.role === 'student'">
+                    <a [class]="{'nav-link': true, active: bindActive('/register-post')}" routerLink="register-post">Register Post</a>
+                </div>
             </div>
             <div class="navbar-nav" *ngIf="!user">
                 <div class="nav-item">

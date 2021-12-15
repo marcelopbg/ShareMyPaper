@@ -1,0 +1,8 @@
+@media screen and (min-width: 600px) {
+    #create-post-div {
+        width: 70% !important;
+    }
+}
+#create-post-div {
+    width: 90%;
+}
