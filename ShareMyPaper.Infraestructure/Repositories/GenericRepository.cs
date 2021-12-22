@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using ShareMyPaper.Application.Dtos;
 using ShareMyPaper.Application.Interfaces.Repositories;
 using ShareMyPaper.Infraestructure.Persistence;
 using System;
@@ -151,5 +152,24 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         {
             return await query.AsNoTracking().FirstAsync();
         }
+    }
+
+    public virtual async Task<PagedResult<T>> PageAsync(int currentPage, int pageSize)
+    {
+
+        IQueryable<T> query = _dbContext.Set<T>();
+        PagedResult<T> result = new();
+        result.CurrentPage = currentPage;
+        result.PageSize = pageSize;
+        result.RowCount = await query.CountAsync();
+
+        var pageCount = (double)result.RowCount / pageSize;
+        result.PageCount = (int)Math.Ceiling(pageCount);
+
+
+        var skip = (currentPage - 1) * pageSize;
+        result.Results = await query.Skip(skip).Take(pageSize).ToListAsync();
+
+        return result;
     }
 }

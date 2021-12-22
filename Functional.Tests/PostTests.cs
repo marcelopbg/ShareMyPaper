@@ -1,4 +1,5 @@
 ﻿using Auth.Test;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -70,5 +71,16 @@ public class PostTests
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+    [Fact]
+    public async Task TestIfPostGetEndpointReturnsPagedResult()
+    {
+
+        //// Arrange
+        var httpClient = _factory.CreateClient();
+        var response = await httpClient.GetAsync("api/post?pageSize=10&currentPage=1");
+        Console.WriteLine(await response.Content.ReadAsStringAsync());
+        response.EnsureSuccessStatusCode();
+
     }
 }

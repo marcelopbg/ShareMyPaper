@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using ShareMyPaper.Application.Dtos;
 using ShareMyPaper.Application.Dtos.Input;
 using ShareMyPaper.Application.Interfaces.Repositories;
 using ShareMyPaper.Application.Interfaces.Services;
 using ShareMyPaper.Domain.Entities;
 using ShareMyPaper.Infraestructure.Persistence;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShareMyPaper.Infraestructure.Repositories
@@ -42,6 +46,11 @@ namespace ShareMyPaper.Infraestructure.Repositories
             await _appDbContext.Post.AddAsync(post);
             await _unitOfWork.Commit();
             return post;
+        }
+
+        public async Task<PagedResult<Post>> GetPagedPosts(int currentPage, int pageSize)
+        {
+            return await PageAsync(currentPage, pageSize);
         }
     }
 }

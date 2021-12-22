@@ -29,4 +29,9 @@ public class PostController : Controller
         var createdPost = await _postRepository.CreatePost(post, user.Email);
         return Ok(createdPost);
     }
+    [HttpGet]
+    public async Task<IActionResult> Get(int pageSize, int currentPage)
+    {
+        return Ok(await _postRepository.GetPagedPosts(currentPage, pageSize));
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
+using ShareMyPaper.Application.Dtos;
 using System.Linq.Expressions;
 
 namespace ShareMyPaper.Application.Interfaces.Repositories;
@@ -29,4 +30,6 @@ public interface IGenericRepository<T> where T : class
         Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
         Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
     );
+
+    Task<PagedResult<T>> PageAsync(int currentPage, int pageSize);
 }
