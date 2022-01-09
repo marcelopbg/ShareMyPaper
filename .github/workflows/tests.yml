@@ -22,7 +22,7 @@ jobs:
       with:
         files: '**/appsettings.json'
       env:
-        AzureStorage: ${{ secrets.AzureStorage }}
+        AzureStorage: ${{ secrets.AZURESTORAGE }}
         
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
