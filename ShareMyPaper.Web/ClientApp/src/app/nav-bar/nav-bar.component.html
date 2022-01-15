@@ -11,10 +11,13 @@
                     <a [class]="{'nav-link': true, active: bindActive('/institutions')}" routerLink="institutions">Institutions</a>
                 </div>
                 <div class="nav-item" *ngIf="user?.role === 'institution moderator'">
-                    <a [class]="{'nav-link': true, active: bindActive('/students-review')}" routerLink="students-review">Students Review</a>
+                    <a [class]="{'nav-link': true, active: bindActive('/students-review')}" routerLink="students-review"> Review Students </a>
+                </div>
+                <div class="nav-item" *ngIf="user?.role === 'institution moderator'">
+                    <a [class]="{'nav-link': true, active: bindActive('/review-posts')}" routerLink="review-posts">Review Posts </a>
                 </div>
                 <div class="nav-item" *ngIf="user?.role === 'admin' || user?.role === 'institution moderator'">
-                    <a [class]="{'nav-link': true, active: bindActive('/register-institution-moderator')}" routerLink="register-institution-moderator">Register Institution Mod</a>
+                    <a [class]="{'nav-link': true, active: bindActive('/register-institution-moderator')}" routerLink="register-institution-moderator">Register Mod</a>
                 </div>
                 <div class="nav-item" *ngIf="user?.role === 'student'">
                     <a [class]="{'nav-link': true, active: bindActive('/register-post')}" routerLink="register-post">Register Post</a>

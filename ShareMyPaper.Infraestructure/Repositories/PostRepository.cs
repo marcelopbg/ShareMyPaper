@@ -6,7 +6,6 @@ using ShareMyPaper.Application.Interfaces.Repositories;
 using ShareMyPaper.Application.Interfaces.Services;
 using ShareMyPaper.Domain.Entities;
 using ShareMyPaper.Infraestructure.Persistence;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,6 +42,7 @@ namespace ShareMyPaper.Infraestructure.Repositories
             var documentId = await _fileStorageService.UploadFileToStorage(postDto.UploadedFile);
             post.ApplicationUserId = user.Id;
             post.DocumentId = documentId;
+            post.DocumentExtension = System.IO.Path.GetExtension(postDto.UploadedFile.FileName);
             await _appDbContext.Post.AddAsync(post);
             await _unitOfWork.Commit();
             return post;

@@ -4,6 +4,7 @@ import { faArrowLeft, faArrowRight, faFilePdf } from '@fortawesome/free-solid-sv
 import { PostService } from '../services/post.service';
 import { IPost } from '../model/post.model';
 import { IPageable } from '../model/pageable.model';
+import { StudentsService } from '../services/students.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
   faFilePdf = faFilePdf;
   newestPosts?: IPageable<IPost>;
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private studentsService: StudentsService) { }
 
   ngOnInit(): void {
    this.postService.getPosts(1).subscribe(p => this.newestPosts = p); 
@@ -38,10 +39,10 @@ export class HomeComponent implements OnInit {
     let nextPage = currentPage - 1;
     this.postService.getPosts(nextPage).subscribe(p => this.newestPosts = p)
   }
-  viewStudentDocument(): void {
-    // const { documentId, documentExtension } = student;
-    // this.studentsService.getStudentDocument(documentId, documentExtension).subscribe((r: Blob) => {
-    //   window.open(window.URL.createObjectURL(r), '_blank');
-    // });
+  viewPostDocument(post: IPost): void {
+    const { documentId, documentExtension } = post;
+    this.studentsService.getStudentDocument(documentId, documentExtension).subscribe((r: Blob) => {
+      window.open(window.URL.createObjectURL(r), '_blank');
+    });
   }
 }

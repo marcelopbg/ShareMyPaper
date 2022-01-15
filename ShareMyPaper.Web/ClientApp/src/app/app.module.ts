@@ -18,6 +18,7 @@ import { InstitutionComponent } from './institution/institution.component';
 import { InstitutionFormComponent } from './institution/institution-form/institution-form.component';
 import { DeletePopupComponent } from './institution/delete-popup/delete-popup.component';
 import { CreatePostComponent } from './post/create-post/create-post.component';
+import { ReviewPostsComponent } from './post/review-posts/review-posts.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { CreatePostComponent } from './post/create-post/create-post.component';
     InstitutionFormComponent,
     DeletePopupComponent,
     CreatePostComponent,
+    ReviewPostsComponent,
   ],
   imports: [
     BrowserModule,

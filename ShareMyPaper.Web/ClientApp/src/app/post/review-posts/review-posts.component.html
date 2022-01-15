@@ -1,0 +1,33 @@
+<div class="mt-5 px-5">
+    <div class="d-flex mb-3">
+        <h5> Review Posts </h5>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Title </th>
+                    <th>Abstract </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let post of posts">
+                    <td>{{post.title}}</td>
+                    <td>{{post.text}}</td>
+                    <td style="width: 180px;">
+                        <button class="btn btn-outline-danger download-button" (click)="viewPostDocument(post)">
+                            <fa-icon [icon]="faFilePdf"></fa-icon> View Document
+                        </button>
+                    </td>
+                    <td style="width: 190px;">
+                        <button class="btn btn-success" (click)="approvePost(post.id)">
+                            <fa-icon [icon]="faCheck"></fa-icon> Approve Student
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

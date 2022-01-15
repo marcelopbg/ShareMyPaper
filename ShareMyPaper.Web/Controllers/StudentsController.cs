@@ -40,7 +40,6 @@ public class StudentsController : Controller
     }
     [HttpGet]
     [Route("document/{documentId}")]
-    [Authorize(Roles = "institution moderator")]
     public async Task<IActionResult> GetStudentDocument([FromRoute] string documentId)
     {
         var result = await _fileStorageService.GetFile(documentId);

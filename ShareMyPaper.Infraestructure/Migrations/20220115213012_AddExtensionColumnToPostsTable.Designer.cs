@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShareMyPaper.Infraestructure.Persistence;
 
@@ -11,9 +12,10 @@ using ShareMyPaper.Infraestructure.Persistence;
 namespace ShareMyPaper.Infraestructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220115213012_AddExtensionColumnToPostsTable")]
+    partial class AddExtensionColumnToPostsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -786,15 +788,15 @@ namespace ShareMyPaper.Infraestructure.Migrations
                         {
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "343875e6-8027-4a24-a0fe-51937071e50f",
+                            ConcurrencyStamp = "b5dab8e9-4c86-4056-98e4-1af3630b0494",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@admin.com",
                             NormalizedUserName = "admin@admin.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEFzTE8UA5Vzn7vfD0c141yaeHC2w+gQImPtd8tWMKVgcs+9ooEk79CpL72Cm8TfAA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELc3VtTH2VxhcIN8PEalSVOvlb2gbnfwYkMA3cS7wyrSS/YNp1KGoPvL8s5SJQAZ1g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a0a27638-96c7-479e-82f7-27e0704ee6f6",
+                            SecurityStamp = "78a38f2b-7c78-4f88-83eb-1548e37896d8",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com",
                             DocumentExtension = "",

@@ -3,44 +3,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ShareMyPaper.Application.Interfaces.Repositories;
-using ShareMyPaper.Application.Interfaces.Services;
-using ShareMyPaper.Application.Mappings;
 using ShareMyPaper.Domain.Entities;
 using ShareMyPaper.Infraestructure.Persistence;
-using ShareMyPaper.Infraestructure.Repositories;
-using ShareMyPaper.Infraestructure.Services;
-using ShareMyPaper.Web;
-using System.Reflection;
+using ShareMyPaper.Web.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSpaStaticFiles(opt =>
 {
     opt.RootPath = "ClientApp/dist/ClientApp";
 });
 
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddTransient<IAuthService, AuthService>();
-builder.Services.AddTransient<IFileStorageService, FileStorageService>();
-builder.Services.AddTransient<ITokenService, TokenService>();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IInstitutionRepository, InstitutionRepository>();
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services.AddScoped<IKnowledgeAreaRepository, KnowledgeAreaRepository>();
-builder.Services.AddScoped<IMailService, MailService>();
-builder.Services.AddScoped<IPostRepository, PostRepository>();
-builder.Services.AddScoped<IInstitutionModeratorRepository, InstitutionModeratorRepository>();
-builder.Services.AddScoped<INotificationService, NotificationService>();
-builder.Services.AddScoped<ICurrentUserRepository, CurrentUserRepository>();
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+Services.ConfigureDependencyInjection(builder.Services);
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
@@ -74,6 +51,8 @@ builder.Services.AddAuthentication(x =>
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
+
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {

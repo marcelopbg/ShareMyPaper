@@ -49,9 +49,9 @@ public class PostController : Controller
             && p.ApplicationUser.InstitutionId == _currentUser.InstitutionId)
             );
     }
-    [HttpPut("review")]
+    [HttpPut("review/{postId}")]
     [Authorize(Roles = "institution moderator")]
-    public async Task<IActionResult> ReviewPost(int postId)
+    public async Task<IActionResult> ReviewPost([FromRoute]int postId)
     {
         var post = await _postRepository.FirstOrDefaultAsync(
             p => p.ApplicationUser.InstitutionId == _currentUser.InstitutionId
