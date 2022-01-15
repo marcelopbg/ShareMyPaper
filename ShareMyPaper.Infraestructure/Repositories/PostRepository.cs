@@ -48,9 +48,31 @@ namespace ShareMyPaper.Infraestructure.Repositories
             return post;
         }
 
-        public async Task<PagedResult<Post>> GetPagedPosts(int currentPage, int pageSize)
+        public async Task<PagedResult<Post>> GetPagedPosts(int currentPage, int pageSize, string userEmail)
         {
-            return await PageAsync(currentPage, pageSize);
+            if (!string.IsNullOrWhiteSpace(userEmail))
+            {
+                var user = await _studentRepository.FirstAsync(user => user.Email == userEmail, include: user => user.Include(u => u.KnowledgeAreas));
+
+                return await PageAsync(currentPage, pageSize,
+                    filter: p =>
+                    p.IsActive == true &&
+                    (p.IsPublic == true || user.InstitutionId == p.ApplicationUser.InstitutionId),
+                    orderBy: post =>
+                    post
+                    .OrderBy(p => user.KnowledgeAreas.Contains(p.KnowledgeArea)) // user areas of interest first
+                    .OrderByDescending(p => p.Id) // newest post first
+                    .OrderByDescending(p => p.IsPublic) // private first
+                    );
+
+            }
+            else
+                return await PageAsync(currentPage, pageSize,
+            filter: p =>
+            p.IsActive == true &&
+            p.IsPublic == true,
+            orderBy: p => p.OrderByDescending(p => p.Id) // newest post first
+            );
         }
     }
 }

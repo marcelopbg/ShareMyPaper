@@ -1,0 +1,10 @@
+.page-mark {
+    font-size: 12px;
+    margin-left: 6px;
+    font-weight: 500;
+    margin-top: 6px;
+}
+.download-button {
+    width: fit-content;
+    align-self: end;
+}

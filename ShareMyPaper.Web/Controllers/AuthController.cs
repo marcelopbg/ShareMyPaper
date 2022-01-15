@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShareMyPaper.Application.Dtos.Input;
 using ShareMyPaper.Application.Dtos.Output;
 using ShareMyPaper.Application.Input.Dtos;
+using ShareMyPaper.Application.Interfaces.Repositories;
 using ShareMyPaper.Application.Interfaces.Services;
 using ShareMyPaper.Application.Validators;
 
@@ -17,16 +18,18 @@ public class AuthController : ControllerBase
     private readonly IAuthService _authService;
     private readonly ITokenService _tokenService;
     private readonly INotificationService _notificationService;
-
+    private readonly ICurrentUserRepository _currentUser;
     public AuthController(
         ITokenService tokenService,
         IAuthService authService,
-        INotificationService notificationService
+        INotificationService notificationService,
+        ICurrentUserRepository currentUser
         )
     {
         _tokenService = tokenService;
         _authService = authService;
         _notificationService = notificationService;
+        _currentUser = currentUser;
     }
 
     [HttpPost]
@@ -55,7 +58,7 @@ public class AuthController : ControllerBase
     {
         if (HttpContext.User.IsInRole("institution moderator"))
         {
-            dto.InstitutionId = new CurrentUser(HttpContext).InstitutionId;
+            dto.InstitutionId = _currentUser.InstitutionId;
         }
         var identityResult = await _authService.RegisterInstitutionModerator(dto);
         if (identityResult.Succeeded)

@@ -11,20 +11,23 @@ public class StudentsController : Controller
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IFileStorageService _fileStorageService;
+    private readonly ICurrentUserRepository _currentUser;
     public StudentsController(
         IStudentRepository studentRepository,
-        IFileStorageService fileStorageService
+        IFileStorageService fileStorageService,
+        ICurrentUserRepository currentUser
         )
     {
         _studentRepository = studentRepository;
         _fileStorageService = fileStorageService;
+        _currentUser = currentUser;
     }
     [HttpGet]
     [Route("review")]
     [Authorize(Roles = "institution moderator")]
     public async Task<IActionResult> GetStudentsWithPendingApproval()
     {
-        return Ok(await _studentRepository.GetStudentsWithPendingApproval(new CurrentUser(HttpContext).InstitutionId));
+        return Ok(await _studentRepository.GetStudentsWithPendingApproval(_currentUser.InstitutionId));
     }
 
     [HttpPost]

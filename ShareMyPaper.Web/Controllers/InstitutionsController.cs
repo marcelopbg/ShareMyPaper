@@ -17,11 +17,13 @@ public class InstitutionsController : ControllerBase
     private readonly IInstitutionRepository _institutionRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-    public InstitutionsController(IInstitutionRepository institutionRepository, IUnitOfWork unitOfWork, IMapper mapper)
+    private readonly ICurrentUserRepository _currentUser;
+    public InstitutionsController(IInstitutionRepository institutionRepository, IUnitOfWork unitOfWork, IMapper mapper, ICurrentUserRepository currentUser)
     {
         _institutionRepository = institutionRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _currentUser = currentUser;
     }
 
     [HttpGet]
@@ -30,7 +32,7 @@ public class InstitutionsController : ControllerBase
 
         if (HttpContext.User.IsInRole("institution moderator"))
         {
-            return Ok(_mapper.Map<IEnumerable<InstitutionOutputDTO>>(await _institutionRepository.ListAsync(i => i.Id == new CurrentUser(HttpContext).InstitutionId)));
+            return Ok(_mapper.Map<IEnumerable<InstitutionOutputDTO>>(await _institutionRepository.ListAsync(i => i.Id == _currentUser.InstitutionId)));
 
         }
         return Ok(_mapper.Map<IEnumerable<InstitutionOutputDTO>>(await _institutionRepository.ListAllAsync()));
@@ -45,13 +47,7 @@ public class InstitutionsController : ControllerBase
         {
             return BadRequest(validationResult);
         }
-        var institution = new Institution()
-        {
-            Description = dto.Description,
-            Country = dto.Country,
-            City = dto.City,
-            State = dto.State,
-        };
+        var institution = _mapper.Map<Institution>(dto);
         var result = await _institutionRepository.AddAsync(institution);
         await _unitOfWork.Commit();
         return Ok(_mapper.Map<InstitutionOutputDTO>(result));
@@ -80,7 +76,7 @@ public class InstitutionsController : ControllerBase
         }
         if (HttpContext.User.IsInRole("institution moderator"))
         {
-            if (new CurrentUser(HttpContext).InstitutionId != institutionId) return BadRequest();
+            if (_currentUser.InstitutionId != institutionId) return BadRequest();
         }
         var institution = await _institutionRepository.FirstOrDefaultAsync(v => v.Id == institutionId);
         if (institution is not null)

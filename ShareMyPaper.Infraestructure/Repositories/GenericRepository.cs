@@ -154,19 +154,40 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
     }
 
-    public virtual async Task<PagedResult<T>> PageAsync(int currentPage, int pageSize)
+    public virtual async Task<PagedResult<T>> PageAsync(
+        int currentPage,
+        int pageSize,
+        Expression<Func<T, bool>> filter = null,
+        Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
+        )
     {
 
         IQueryable<T> query = _dbContext.Set<T>();
         PagedResult<T> result = new();
+
+
+        if (filter != null)
+        {
+            query = query.Where(filter);
+        }
+        if (include != null)
+        {
+            query = include(query);
+        }
+
+        if (orderBy != null)
+        {
+            query = orderBy(query);
+        }
+
         result.CurrentPage = currentPage;
         result.PageSize = pageSize;
         result.RowCount = await query.CountAsync();
 
         var pageCount = (double)result.RowCount / pageSize;
         result.PageCount = (int)Math.Ceiling(pageCount);
-
-
+ 
         var skip = (currentPage - 1) * pageSize;
         result.Results = await query.Skip(skip).Take(pageSize).ToListAsync();
 

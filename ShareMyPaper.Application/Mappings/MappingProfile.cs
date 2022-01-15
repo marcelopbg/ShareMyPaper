@@ -10,6 +10,7 @@ public class MappingProfile : Profile
     {
         CreateMap<ApplicationUser, StudentOutputDTO>();
         CreateMap<Institution, InstitutionOutputDTO>();
+        CreateMap<InstitutionInputDTO, Institution>();
         CreateMap<KnowledgeArea, KnowledgeAreaOutputDTO>();
         CreateMap<Post, PostInputDTO>();
         CreateMap<PostInputDTO, Post>();

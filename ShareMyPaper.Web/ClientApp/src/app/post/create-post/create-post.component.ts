@@ -22,7 +22,7 @@ export class CreatePostComponent implements OnInit {
   postForm = new FormGroup({
     title: new FormControl("", [Validators.required]),
     text: new FormControl("", [Validators.required]),
-    isPublic: new FormControl("", [Validators.required]),
+    isPublic: new FormControl(false),
     uploadedFile: new FormControl("", [Validators.required]),
     knowledgeAreaId: new FormControl("", Validators.required)
   })

@@ -76,7 +76,7 @@ public class PostTests
     public async Task TestIfPostGetEndpointReturnsPagedResult()
     {
 
-        //// Arrange
+        // Arrange
         var httpClient = _factory.CreateClient();
         var response = await httpClient.GetAsync("api/post?pageSize=10&currentPage=1");
         Console.WriteLine(await response.Content.ReadAsStringAsync());

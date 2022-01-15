@@ -10,6 +10,7 @@ using ShareMyPaper.Domain.Entities;
 using ShareMyPaper.Infraestructure.Persistence;
 using ShareMyPaper.Infraestructure.Repositories;
 using ShareMyPaper.Infraestructure.Services;
+using ShareMyPaper.Web;
 using System.Reflection;
 using System.Text;
 
@@ -24,6 +25,7 @@ builder.Services.AddSpaStaticFiles(opt =>
     opt.RootPath = "ClientApp/dist/ClientApp";
 });
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IFileStorageService, FileStorageService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
@@ -36,12 +38,12 @@ builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IInstitutionModeratorRepository, InstitutionModeratorRepository>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<ICurrentUserRepository, CurrentUserRepository>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
-    //opt.UseInMemoryDatabase("InMem");
     opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 });
 
