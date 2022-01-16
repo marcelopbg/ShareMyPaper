@@ -58,7 +58,10 @@ export class SignupComponent implements OnInit {
     formData.append('institutionId', this.signupForm.get('institutionId')!.value);
     const preferredKnowledgeAreas: number[] = this.signupForm.get('preferredKnowledgeAreas')?.value;
     if(preferredKnowledgeAreas && preferredKnowledgeAreas.length > 0)
-      formData.append('preferredKnowledgeAreas', this.signupForm.get('preferredKnowledgeAreas')!.value);
+    preferredKnowledgeAreas.forEach(v => {
+      formData.append('preferredKnowledgeAreas', ""+v);
+    })
+    
     this.signupService.registerStudent(formData).subscribe({
       next: r => {
         console.log(r);
