@@ -3,7 +3,7 @@
 This project is a reference architecture for web application development.
 It can be used as a bootstrap for ASP.NET Software Developemnt.
 
-Project features: 
+## Project features
 
 - Unit and integration tests bootstrap (XUnit. Integration tests rely on inMemoryDb)
 - Fullstack application (.NET C# Backend & Angular Frontend App)
@@ -17,7 +17,25 @@ Project features:
 - Pagination for generic entities
 - Docker container to build an deploy application
 
-It its built based on the principals of the following architectural patterns:
+## Application Layers
+   
+   - **Domain:** contains application/DB Models/Entities
+   - **Application:**
+     - mapping of DTO's from/to entities
+     - interfaces for repositories and services
+   - **Web:** basically a Web API. supposed to be a thin layer that wire up all layers
+     - Controllers
+        - receive user input and delegate to other layers what to do
+     - **Program:**
+        - Application Config
+        - Application Entrypoint
+        - Dependency Injection
+   - **Infraestructure:**
+      - Actual implementation of services and repositories described by interfaces on Application layer
+      - Responsible for interacting with external dependencies such as e-mail, storage and database
+  
+
+## Reference Architectural patterns
 
 - Hexagonal Architecture (Ports and adapters)
   - https://alistair.cockburn.us/hexagonal-architecture/
